@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>SUPER-ALE | Davide Puglisi</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#00225a;--blu:#2c42a8;--oro:#f9c108;--rosso:#9e1b2b;--blubg:#e8f0fe;--orobg:#fef9e7;--rossbg:#fce8e8;--azz:#f0f4fa}
+body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width:500px;margin:0 auto;min-height:100vh}
+.header{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;border-radius:8px;background:var(--blu);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:var(--oro);flex-shrink:0}
+.header-txt{flex:1}.header-txt h1{color:#fff;font-size:15px;font-weight:800;margin:0}.header-txt p{color:var(--oro);font-size:10px;font-weight:600;margin:0}
+.nav{display:flex;background:#fff;border-bottom:2px solid var(--oro)}
+.nav button{flex:1;padding:10px 0;border:none;background:#fff;color:#94a3b8;font-weight:700;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;transition:.15s}
+.nav button.active{background:var(--azz);color:var(--navy);border-bottom-color:var(--navy)}
+.timer-bar{position:sticky;top:0;z-index:99;background:var(--navy);padding:6px 16px;display:none;align-items:center;gap:8px}
+.timer-bar.show{display:flex}.timer-bar.done{background:#22c55e}
+.timer-track{flex:1;height:5px;background:#fff3;border-radius:3px;overflow:hidden}
+.timer-fill{height:100%;background:var(--oro);border-radius:3px;transition:width 1s linear}
+.timer-num{color:#fff;font-weight:800;font-size:20px;min-width:48px;text-align:center}
+.timer-x{background:#fff3;border:none;color:#fff;padding:3px 8px;border-radius:4px;cursor:pointer;font-weight:700}
+.tabs{display:flex;gap:4px;padding:10px 10px 4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs button{padding:8px 12px;border:none;background:#fff;color:var(--navy);font-weight:700;font-size:12px;cursor:pointer;border-radius:8px;white-space:nowrap;flex-shrink:0;box-shadow:0 1px 3px #0001}
+.tabs button.active{background:var(--navy);color:#fff;box-shadow:0 2px 6px rgba(0,34,90,.4)}
+.session-sub{padding:4px 14px;font-size:13px;color:var(--navy);font-weight:700}
+.weeks{display:flex;gap:4px;padding:6px 14px;justify-content:center}
+.weeks button{flex:1;max-width:52px;padding:7px 0;border:none;background:#f1f5f9;color:var(--navy);font-weight:700;font-size:12px;border-radius:6px;cursor:pointer}
+.weeks button.active{background:var(--navy);color:#fff;box-shadow:0 2px 6px rgba(0,34,90,.3)}
+.weeks button.has{background:var(--blubg)}
+.prog-badge{margin:4px 14px 6px;padding:6px 10px;background:var(--blubg);border-radius:6px;font-size:11px;color:var(--blu);font-weight:600;border:1px solid rgba(44,66,168,.12)}
+.cards{padding:4px 10px 16px}
+.card{background:#fff;border-radius:10px;margin-bottom:6px;border:1px solid #e2e8f0;overflow:hidden}
+.card.filled{border-color:rgba(44,66,168,.3)}
+.card-head{display:flex;align-items:center;gap:6px;padding:9px 10px;cursor:pointer}
+.card-head .tipo{color:#fff;font-weight:800;font-size:10px;padding:2px 6px;border-radius:3px}
+.card-head .tipo-B{background:var(--blu)}.card-head .tipo-C{background:#6b5200}.card-head .tipo-P{background:var(--rosso)}
+.card-head .name{font-weight:700;font-size:13px;color:var(--navy);flex:1}
+.card-head .sxr{font-size:11px;color:#94a3b8}
+.card-head .check{color:#22c55e;font-size:12px}
+.card-head .arrow{font-size:9px;color:#94a3b8;transition:transform .2s;display:inline-block}
+.card-head .arrow.open{transform:rotate(180deg)}
+.bg-B{background:var(--blubg)}.bg-C{background:var(--orobg)}.bg-P{background:var(--rossbg)}
+.card-body{padding:8px 10px 10px;display:none}.card-body.open{display:block}
+.card-info{font-size:11px;color:#64748b;margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap}
+.input-row{display:flex;align-items:center;gap:5px}
+.input-row input[type=number]{width:55px;padding:7px 3px;border:2px solid rgba(44,66,168,.15);border-radius:6px;font-size:15px;font-weight:700;text-align:center;outline:none;color:var(--navy)}
+.input-row .x{color:#94a3b8;font-weight:700}
+.input-row input[type=text]{flex:1;padding:7px 6px;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;outline:none;color:#64748b;min-width:40px}
+.input-row .timer-btn{background:var(--navy);border:none;color:var(--oro);padding:7px 9px;border-radius:6px;cursor:pointer;font-weight:800;font-size:13px}
+.week-dots{display:flex;gap:3px;margin-top:6px;flex-wrap:wrap}
+.week-dots span{padding:2px 5px;border-radius:3px;font-size:9px;font-weight:600;color:#cbd5e1}
+.week-dots span.filled{color:var(--blu)}.week-dots span.current{background:rgba(44,66,168,.1)}
+.legend{display:flex;gap:6px;justify-content:center;padding:0 10px 14px;flex-wrap:wrap}
+.legend span{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.riepilogo{padding:12px 14px}
+.riepilogo h3{font-weight:800;font-size:16px;color:var(--navy);margin:0}
+.copy-btn{background:var(--oro);border:none;color:var(--navy);padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:800;font-size:13px;transition:.2s}
+.copy-btn.done{background:#22c55e;color:#fff}
+.hint{font-size:12px;color:#64748b;background:var(--azz);padding:10px 12px;border-radius:8px;margin:10px 0 12px;border:1px solid rgba(44,66,168,.12)}
+.rie-session{background:#fff;border-radius:10px;margin-bottom:10px;border:1px solid #e2e8f0;overflow:hidden}
+.rie-header{background:var(--navy);padding:7px 10px;color:#fff;font-weight:700;font-size:12px}
+.rie-table{width:100%;border-collapse:collapse;font-size:11px}
+.rie-table th{padding:5px 4px;text-align:center;color:#94a3b8;font-weight:700;font-size:10px;background:#f8fafc}
+.rie-table th:first-child{text-align:left;padding-left:8px}
+.rie-table td{padding:5px 4px;text-align:center;border-bottom:1px solid #f1f5f9;font-weight:400;color:#cbd5e1}
+.rie-table td:first-child{text-align:left;padding-left:8px;font-weight:600;color:var(--navy);white-space:nowrap}
+.rie-table td.has{color:var(--navy);font-weight:700}
+.empty{text-align:center;padding:40px;color:#94a3b8}
+.empty .icon{font-size:36px;margin-bottom:6px}
+.footer{text-align:center;padding:12px 14px 20px;font-size:10px;color:#94a3b8}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">S</div>
+  <div class="header-txt"><h1>SUPER-ALE</h1><p id="headerSub">Davide Puglisi · Fase 2</p></div>
+</div>
+<div class="nav">
+  <button class="active" onclick="switchView('scheda')">📋 Scheda</button>
+  <button onclick="switchView('riepilogo')">📊 Riepilogo</button>
+</div>
+<div class="timer-bar" id="timerBar">
+  <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
+  <span class="timer-num" id="timerNum">0:00</span>
+  <button class="timer-x" onclick="stopTimer()">✕</button>
+</div>
+<div id="schedaView"></div>
+<div id="riepilogoView" style="display:none"></div>
+<div class="footer">Metodo SUPER-ALE · Fase 2 - Progressione Carichi</div>
+<script>
+// ══════════════════════════════════════════════════
+// SOSTITUISCI SOLO QUESTA SEZIONE PER OGNI CLIENTE
+// ══════════════════════════════════════════════════
+const CLIENT_NAME = "Davide Puglisi";
+const PHASE_LABEL = "Fase 2 - Progressione Carichi";
+const PHASE_SHORT = "Fase 2";
+const STORAGE_KEY = "superale-davide-puglisi-fase2";
+const NUM_WEEKS = 6;
+const WEEKS = Array.from({length: NUM_WEEKS}, (_, i) => i + 1);
+
+const SESSIONS = [
+{
+"id": "seduta_a",
+"name": "Seduta A",
+"sub": "Full Body (tutti i fondamentali)",
+"ex": [
+{
+"id": "sa1",
+"t": "B",
+"n": "Goblet Squat manubrio",
+"sxr": "3x6",
+"rec": 120,
+"prog": null,
+"cue": "Manubrio al petto, schiena dritta, sotto il parallelo"
+},
+{
+"id": "sa2",
+"t": "B",
+"n": "Stacco con manubri",
+"sxr": "3x6",
+"rec": 120,
+"prog": null,
+"cue": "CON GANCI. Spingi coi piedi, schiena neutra"
+},
+{
+"id": "sa3",
+"t": "C",
+"n": "Panca Piana bilanciere",
+"sxr": "3x6",
+"rec": 90,
+"prog": null,
+"cue": "Setting scapolare, fermo 1\" al petto"
+},
+{
+"id": "sa4",
+"t": "C",
+"n": "Military Press bilanciere",
+"sxr": "3x6",
+"rec": 90,
+"prog": null,
+"cue": "Gomito sotto polso, addome contratto"
+},
+{
+"id": "sa5",
+"t": "C",
+"n": "Rematore con manubrio",
+"sxr": "3x8",
+"rec": 90,
+"prog": null,
+"cue": "CON GANCI. Un braccio alla volta, tira di gomito"
+},
+{
+"id": "sa6",
+"t": "C",
+"n": "Lat Machine triangolo",
+"sxr": "3x8",
+"rec": 90,
+"prog": null,
+"cue": "CON GANCI. Presa neutra, busto bloccato"
+},
+{
+"id": "sa7",
+"t": "P",
+"n": "Curl manubri martello",
+"sxr": "2x12",
+"rec": 60,
+"prog": null,
+"cue": "Presa neutra, gomito fermo"
+},
+{
+"id": "sa8",
+"t": "P",
+"n": "Alzate laterali manubri",
+"sxr": "2x15",
+"rec": 60,
+"prog": null,
+"cue": "Gomiti leggermente flessi, non superare le spalle"
+}
+]
+},
+{
+"id": "seduta_b",
+"name": "Seduta B",
+"sub": "Accosciata + Spinta",
+"ex": [
+{
+"id": "sb1",
+"t": "B",
+"n": "Goblet Squat manubrio",
+"sxr": "4x6",
+"rec": 120,
+"prog": null,
+"cue": "Manubrio piu pesante, schiena dritta, sotto il parallelo"
+},
+{
+"id": "sb2",
+"t": "B",
+"n": "Panca Piana bilanciere",
+"sxr": "4x6",
+"rec": 120,
+"prog": null,
+"cue": "Setting scapolare, fermo 1\" al petto, niente rimbalzo"
+},
+{
+"id": "sb3",
+"t": "C",
+"n": "Squat bilanciere (introduzione)",
+"sxr": "3x8",
+"rec": 90,
+"prog": null,
+"cue": "Solo bilanciere scarico (20 kg). Concentrati sulla tecnica"
+},
+{
+"id": "sb4",
+"t": "C",
+"n": "Affondi camminata manubri",
+"sxr": "3x10",
+"rec": 90,
+"prog": null,
+"cue": "Passo lungo, ginocchio non oltre la punta del piede"
+},
+{
+"id": "sb5",
+"t": "C",
+"n": "Spinte in alto manubri seduto",
+"sxr": "3x8",
+"rec": 90,
+"prog": null,
+"cue": "Panca 90 gradi, presa neutra, gomito sotto polso"
+},
+{
+"id": "sb6",
+"t": "C",
+"n": "Spinte panca inclinata 30 gradi",
+"sxr": "3x8",
+"rec": 90,
+"prog": null,
+"cue": "Panca a 30 gradi, gomiti a 45 gradi rispetto al busto"
+},
+{
+"id": "sb7",
+"t": "P",
+"n": "Alzate laterali manubri",
+"sxr": "2x15",
+"rec": 60,
+"prog": null,
+"cue": "Gomiti leggermente flessi, controllo in discesa"
+}
+]
+},
+{
+"id": "seduta_c",
+"name": "Seduta C",
+"sub": "Estensione d'anca + Tirata + Braccia",
+"ex": [
+{
+"id": "sc1",
+"t": "B",
+"n": "Stacco con manubri",
+"sxr": "4x6",
+"rec": 120,
+"prog": null,
+"cue": "CON GANCI. Spingi coi piedi, schiena neutra, manubri vicini alle gambe"
+},
+{
+"id": "sc2",
+"t": "B",
+"n": "Lat Machine triangolo",
+"sxr": "4x8",
+"rec": 120,
+"prog": null,
+"cue": "CON GANCI. Presa neutra, busto bloccato, tira al petto alto"
+},
+{
+"id": "sc3",
+"t": "C",
+"n": "Lat Machine barra presa prona",
+"sxr": "3x10",
+"rec": 90,
+"prog": null,
+"cue": "CON GANCI. Barra al petto alto, busto fermo"
+},
+{
+"id": "sc4",
+"t": "C",
+"n": "Hyperextension",
+"sxr": "3x12",
+"rec": 90,
+"prog": null,
+"cue": "Schiena neutra, contrai i glutei in cima"
+},
+{
+"id": "sc5",
+"t": "C",
+"n": "Curl manubri panca 45 gradi",
+"sxr": "3x10",
+"rec": 90,
+"prog": null,
+"cue": "Gomito fermo, presa a martello se il dito da fastidio"
+},
+{
+"id": "sc6",
+"t": "C",
+"n": "Push Down corda",
+"sxr": "3x10",
+"rec": 90,
+"prog": null,
+"cue": "Gomiti lungo i fianchi, zero stress sulla presa"
+},
+{
+"id": "sc7",
+"t": "P",
+"n": "Curl manubri martello",
+"sxr": "2x12",
+"rec": 60,
+"prog": null,
+"cue": "Presa neutra, gomito fermo"
+},
+{
+"id": "sc8",
+"t": "P",
+"n": "French Press manubrio",
+"sxr": "2x12",
+"rec": 60,
+"prog": null,
+"cue": "Manubrio dietro la nuca a due mani, gomiti fermi"
+}
+]
+}
+];
+// ══════════════════════════════════════════════════
+// FINE SEZIONE PERSONALIZZABILE
+// ══════════════════════════════════════════════════
+
+let state={ses:0,week:1,openEx:null};
+let log={};
+let timerInterval=null,timerTarget=0;
+
+try{const s=localStorage.getItem(STORAGE_KEY);if(s)log=JSON.parse(s);}catch(e){}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(log));}catch(e){}}
+function getEntry(exId,w){return(log[exId]&&log[exId]["w"+w])||{kg:"",reps:"",note:""};}
+function setEntry(exId,w,field,val){if(!log[exId])log[exId]={};if(!log[exId]["w"+w])log[exId]["w"+w]={kg:"",reps:"",note:""};log[exId]["w"+w][field]=val;save();updateCount();}
+function updateCount(){let c=0;for(let k in log)for(let w in log[k])if(log[k][w].kg)c++;document.getElementById("headerSub").textContent=CLIENT_NAME+" · "+PHASE_SHORT+" · "+c+" dati";}
+function startTimer(sec){stopTimer();timerTarget=sec;let remaining=sec;const bar=document.getElementById("timerBar");bar.classList.add("show");bar.classList.remove("done");updateTimerDisplay(remaining);timerInterval=setInterval(()=>{remaining--;if(remaining<=0){clearInterval(timerInterval);bar.classList.add("done");document.getElementById("timerNum").textContent="GO!";document.getElementById("timerFill").style.width="100%";try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}return;}updateTimerDisplay(remaining);},1000);}
+function stopTimer(){clearInterval(timerInterval);document.getElementById("timerBar").classList.remove("show","done");}
+function updateTimerDisplay(s){const m=Math.floor(s/60),ss=s%60;document.getElementById("timerNum").textContent=m+":"+String(ss).padStart(2,"0");document.getElementById("timerFill").style.width=((timerTarget-s)/timerTarget*100)+"%";}
+function switchView(v){document.querySelectorAll(".nav button").forEach((b,i)=>{b.classList.toggle("active",i===(v==="scheda"?0:1));});document.getElementById("schedaView").style.display=v==="scheda"?"block":"none";document.getElementById("riepilogoView").style.display=v==="riepilogo"?"block":"none";if(v==="riepilogo")renderRiepilogo();}
+function recLabel(s){return s>=120?"2'30\"":s>=90?"1'30\"":"1'";}
+function selectSession(i){state.ses=i;state.openEx=null;renderScheda();}
+function selectWeek(w){state.week=w;renderScheda();}
+function toggleEx(id){state.openEx=state.openEx===id?null:id;renderScheda();}
+
+function renderScheda(){
+  const ses=SESSIONS[state.ses];let h="";
+  h+='<div class="tabs">';SESSIONS.forEach((s,i)=>{h+='<button class="'+(state.ses===i?"active":"")+'" onclick="selectSession('+i+')">'+s.name+'</button>';});h+='</div>';
+  h+='<div class="session-sub">'+ses.sub+'</div>';
+  h+='<div class="weeks">';for(let w=1;w<=NUM_WEEKS;w++){const active=state.week===w;const has=ses.ex.some(e=>log[e.id]&&log[e.id]["w"+w]&&log[e.id]["w"+w].kg);h+='<button class="'+(active?"active":"")+(has&&!active?" has":"")+'" onclick="selectWeek('+w+')">W'+w+'</button>';}h+='</div>';
+  if(ses.ex[0].prog){h+='<div class="prog-badge">📊 Settimana '+state.week+': Base a <strong>'+ses.ex[0].prog[state.week-1]+'</strong></div>';}
+  h+='<div class="cards">';
+  ses.ex.forEach(ex=>{
+    const e=getEntry(ex.id,state.week);const filled=e.kg||e.reps;const isOpen=state.openEx===ex.id;const sxrDisplay=ex.prog?ex.prog[state.week-1]:ex.sxr;
+    h+='<div class="card'+(filled?" filled":"")+'">';
+    h+='<div class="card-head bg-'+ex.t+'" onclick="toggleEx(\''+ex.id+'\')">';
+    h+='<span class="tipo tipo-'+ex.t+'">'+ex.t+'</span><span class="name">'+ex.n+'</span><span class="sxr">'+sxrDisplay+'</span>';
+    if(filled)h+='<span class="check">✓</span>';h+='<span class="arrow'+(isOpen?" open":"")+'">▼</span></div>';
+    h+='<div class="card-body'+(isOpen?" open":"")+'">';
+    h+='<div class="card-info"><span>📋 '+sxrDisplay+'</span><span>⏱ '+recLabel(ex.rec)+'</span><span>💡 '+ex.cue+'</span></div>';
+    h+='<div class="input-row">';
+    h+='<input type="number" inputmode="decimal" placeholder="kg" value="'+(e.kg||"")+'" onchange="setEntry(\''+ex.id+'\','+state.week+',\'kg\',this.value);renderScheda()">';
+    h+='<span class="x">×</span>';
+    h+='<input type="number" inputmode="numeric" placeholder="rep" value="'+(e.reps||"")+'" onchange="setEntry(\''+ex.id+'\','+state.week+',\'reps\',this.value);renderScheda()">';
+    h+='<input type="text" placeholder="Note..." value="'+(e.note||"").replace(/"/g,"&quot;")+'" onchange="setEntry(\''+ex.id+'\','+state.week+',\'note\',this.value)">';
+    h+='<button class="timer-btn" onclick="event.stopPropagation();startTimer('+ex.rec+')">⏱</button></div>';
+    h+='<div class="week-dots">';for(let w=1;w<=NUM_WEEKS;w++){const d=getEntry(ex.id,w);const f=d.kg||d.reps;h+='<span class="'+(f?"filled":"")+(w===state.week?" current":"")+'">W'+w+(f?" "+d.kg+"×"+d.reps:"")+'</span>';}
+    h+='</div></div></div>';
+  });
+  h+='</div>';
+  h+='<div class="legend">';
+  h+='<span style="background:var(--blubg);color:var(--blu)"><b style="background:var(--blu);color:#fff;padding:1px 4px;border-radius:2px;font-size:9px;margin-right:3px">B</b>Base</span>';
+  h+='<span style="background:var(--orobg);color:#6b5200"><b style="background:#6b5200;color:#fff;padding:1px 4px;border-radius:2px;font-size:9px;margin-right:3px">C</b>Compl.</span>';
+  h+='<span style="background:var(--rossbg);color:var(--rosso)"><b style="background:var(--rosso);color:#fff;padding:1px 4px;border-radius:2px;font-size:9px;margin-right:3px">P</b>Pomp.</span>';
+  h+='</div>';
+  document.getElementById("schedaView").innerHTML=h;
+}
+
+function renderRiepilogo(){
+  let h='<div class="riepilogo">';
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+  h+='<h3>Riepilogo</h3><button class="copy-btn" id="copyBtn" onclick="copyAll()">📋 Copia tutto</button></div>';
+  h+='<div class="hint">Premi <strong>Copia tutto</strong> e incolla su WhatsApp per inviare i carichi al trainer.</div>';
+  let hasAny=false;
+  SESSIONS.forEach(ses=>{const sesHas=ses.ex.some(ex=>WEEKS.some(w=>log[ex.id]&&log[ex.id]["w"+w]&&log[ex.id]["w"+w].kg));if(!sesHas)return;hasAny=true;
+  h+='<div class="rie-session"><div class="rie-header">'+ses.name+' — '+ses.sub+'</div>';
+  h+='<div style="overflow-x:auto"><table class="rie-table"><thead><tr><th style="text-align:left">Esercizio</th>';
+  for(let w=1;w<=NUM_WEEKS;w++)h+='<th style="min-width:48px">W'+w+'</th>';
+  h+='</tr></thead><tbody>';
+  ses.ex.forEach(ex=>{const bg=ex.t==="B"?"var(--blubg)":ex.t==="C"?"var(--orobg)":"var(--rossbg)";
+  h+='<tr style="background:'+bg+'"><td><span style="font-size:9px;font-weight:800;color:'+(ex.t==="B"?"var(--blu)":ex.t==="C"?"#6b5200":"var(--rosso)")+';margin-right:3px">'+ex.t+'</span>'+ex.n+'</td>';
+  for(let w=1;w<=NUM_WEEKS;w++){const d=getEntry(ex.id,w);const hv=d.kg||d.reps;h+='<td class="'+(hv?"has":"")+'">'+(hv?(d.kg||"-")+"×"+(d.reps||"-"):"-")+'</td>';}
+  h+='</tr>';});h+='</tbody></table></div></div>';});
+  if(!hasAny)h+='<div class="empty"><div class="icon">📝</div><div style="font-weight:600">Nessun dato</div><div style="font-size:12px;margin-top:4px">Vai nella Scheda e inserisci i carichi</div></div>';
+  h+='</div>';document.getElementById("riepilogoView").innerHTML=h;
+}
+
+function generateText(){
+  let t="RIEPILOGO ALLENAMENTO\n"+CLIENT_NAME+" - "+PHASE_LABEL+"\n================================\n\n";
+  SESSIONS.forEach(ses=>{t+=ses.name+" - "+ses.sub+"\n--------------------------------\n";
+  ses.ex.forEach(ex=>{t+=ex.t+" | "+ex.n+"\n";let any=false;
+  for(let w=1;w<=NUM_WEEKS;w++){const d=getEntry(ex.id,w);if(d.kg||d.reps){any=true;t+="  W"+w+": "+(d.kg||"-")+"kg x "+(d.reps||"-")+" rep";if(d.note)t+=" ("+d.note+")";t+="\n";}}
+  if(!any)t+="  —\n";});t+="\n";});return t;
+}
+
+function copyAll(){
+  const txt=generateText();const btn=document.getElementById("copyBtn");
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(()=>{btn.textContent="✓ Copiato!";btn.classList.add("done");setTimeout(()=>{btn.textContent="📋 Copia tutto";btn.classList.remove("done");},2500);});}
+  else{const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);btn.textContent="✓ Copiato!";btn.classList.add("done");setTimeout(()=>{btn.textContent="📋 Copia tutto";btn.classList.remove("done");},2500);}
+}
+
+renderScheda();updateCount();
+</script>
+</body>
+</html>
