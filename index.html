@@ -74,7 +74,7 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 <body>
 <div class="header">
   <div class="logo">S</div>
-  <div class="header-txt"><h1>SUPER-ALE</h1><p id="headerSub">Davide Puglisi · Fase 2</p></div>
+  <div class="header-txt"><h1>SUPER-ALE</h1><p id="headerSub">Davide Puglisi · Fase 3</p></div>
 </div>
 <div class="nav">
   <button class="active" onclick="switchView('scheda')">📋 Scheda</button>
@@ -87,80 +87,83 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 </div>
 <div id="schedaView"></div>
 <div id="riepilogoView" style="display:none"></div>
-<div class="footer">Metodo SUPER-ALE · Fase 2 - Progressione Carichi</div>
+<div class="footer">Metodo SUPER-ALE · Fase 3 - Accumulo Volume</div>
 <script>
 // ══════════════════════════════════════════════════
 // SOSTITUISCI SOLO QUESTA SEZIONE PER OGNI CLIENTE
 // ══════════════════════════════════════════════════
 const CLIENT_NAME = "Davide Puglisi";
-const PHASE_LABEL = "Fase 2 - Progressione Carichi";
-const PHASE_SHORT = "Fase 2";
-const STORAGE_KEY = "superale-davide-puglisi-fase2";
-const NUM_WEEKS = 6;
+const PHASE_LABEL = "Fase 3 - Accumulo Volume";
+const PHASE_SHORT = "Fase 3";
+const STORAGE_KEY = "superale-davide-puglisi-fase3";
+const NUM_WEEKS = 5;
 const WEEKS = Array.from({length: NUM_WEEKS}, (_, i) => i + 1);
 
 const SESSIONS = [
 {
 "id": "seduta_a",
 "name": "Seduta A",
-"sub": "Full Body (tutti i fondamentali)",
+"sub": "Full Body (priorita spinte + tirate)",
 "ex": [
 {
 "id": "sa1",
 "t": "B",
-"n": "Goblet Squat manubrio",
-"sxr": "3x6",
+"n": "Panca Piana bilanciere",
+"sxr": "V",
 "rec": 120,
-"prog": null,
-"cue": "Manubrio al petto, schiena dritta, sotto il parallelo"
+"prog": [
+"4x6",
+"4x6",
+"5x6",
+"5x6",
+"4x7"
+],
+"cue": "Setting scapolare, fermo 1\" al petto. Carico W1: 25 kg. Fisso per tutte le 5 settimane"
 },
 {
 "id": "sa2",
 "t": "B",
-"n": "Stacco con manubri",
-"sxr": "3x6",
+"n": "Military Press bilanciere",
+"sxr": "V",
 "rec": 120,
-"prog": null,
-"cue": "CON GANCI. Spingi coi piedi, schiena neutra"
+"prog": [
+"4x6",
+"4x6",
+"5x6",
+"5x6",
+"4x7"
+],
+"cue": "Gomito sotto polso, addome contratto. Carico W1: 20 kg. Fisso per tutte le 5 settimane"
 },
 {
 "id": "sa3",
-"t": "C",
-"n": "Panca Piana bilanciere",
-"sxr": "3x10",
-"rec": 90,
-"prog": null,
-"cue": "Setting scapolare, fermo 1\" al petto"
-},
-{
-"id": "sa4",
-"t": "C",
-"n": "Military Press bilanciere",
-"sxr": "3x10",
-"rec": 90,
-"prog": null,
-"cue": "Gomito sotto polso, addome contratto"
-},
-{
-"id": "sa5",
 "t": "C",
 "n": "Rematore con manubrio",
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "CON GANCI. Un braccio alla volta, tira di gomito"
+"cue": "CON GANCI. Un braccio alla volta, presa neutra, tira di gomito"
 },
 {
-"id": "sa6",
+"id": "sa4",
 "t": "C",
 "n": "Lat Machine triangolo",
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "CON GANCI. Presa neutra, busto bloccato"
+"cue": "CON GANCI. Presa neutra, busto bloccato, tira al petto alto"
 },
 {
-"id": "sa7",
+"id": "sa5",
+"t": "C",
+"n": "Goblet Squat manubrio",
+"sxr": "3x8",
+"rec": 90,
+"prog": null,
+"cue": "Manubrio al petto, schiena dritta, sotto il parallelo"
+},
+{
+"id": "sa6",
 "t": "P",
 "n": "Curl manubri martello",
 "sxr": "2x12",
@@ -169,7 +172,7 @@ const SESSIONS = [
 "cue": "Presa neutra, gomito fermo"
 },
 {
-"id": "sa8",
+"id": "sa7",
 "t": "P",
 "n": "Alzate laterali manubri",
 "sxr": "2x15",
@@ -182,46 +185,49 @@ const SESSIONS = [
 {
 "id": "seduta_b",
 "name": "Seduta B",
-"sub": "Accosciata + Spinta",
+"sub": "Full Body (priorita gambe + stacco)",
 "ex": [
 {
 "id": "sb1",
 "t": "B",
-"n": "Goblet Squat manubrio",
-"sxr": "4x6",
+"n": "Stacco con manubri",
+"sxr": "V",
 "rec": 120,
-"prog": null,
-"cue": "Manubrio piu pesante, schiena dritta, sotto il parallelo"
+"prog": [
+"4x6",
+"4x6",
+"5x6",
+"5x6",
+"4x7"
+],
+"cue": "CON GANCI. Carico W1: 10+10 kg. Se W1 e troppo facile, dalla W2 sblocca a 12+12"
 },
 {
 "id": "sb2",
 "t": "B",
-"n": "Panca Piana bilanciere",
-"sxr": "4x6",
+"n": "Squat bilanciere (se disponibile) o Goblet Squat",
+"sxr": "V",
 "rec": 120,
-"prog": null,
-"cue": "Setting scapolare, fermo 1\" al petto, niente rimbalzo"
+"prog": [
+"4x6",
+"4x6",
+"5x6",
+"5x6",
+"4x7"
+],
+"cue": "Carico W1: 20 kg bilanciere o 20 kg Goblet. Fisso per tutte le 5 settimane"
 },
 {
 "id": "sb3",
 "t": "C",
-"n": "Squat bilanciere (introduzione)",
-"sxr": "3x8",
-"rec": 90,
-"prog": null,
-"cue": "Solo bilanciere scarico (20 kg). Concentrati sulla tecnica"
-},
-{
-"id": "sb4",
-"t": "C",
-"n": "Affondi camminata manubri",
+"n": "Panca Piana bilanciere",
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "Passo lungo, ginocchio non oltre la punta del piede"
+"cue": "Setting scapolare, fermo al petto, niente rimbalzo"
 },
 {
-"id": "sb5",
+"id": "sb4",
 "t": "C",
 "n": "Spinte in alto manubri seduto",
 "sxr": "3x10",
@@ -230,50 +236,7 @@ const SESSIONS = [
 "cue": "Panca 90 gradi, presa neutra, gomito sotto polso"
 },
 {
-"id": "sb6",
-"t": "C",
-"n": "Spinte panca inclinata 30 gradi",
-"sxr": "3x10",
-"rec": 90,
-"prog": null,
-"cue": "Panca a 30 gradi, gomiti a 45 gradi rispetto al busto"
-},
-{
-"id": "sb7",
-"t": "P",
-"n": "Alzate laterali manubri",
-"sxr": "2x15",
-"rec": 60,
-"prog": null,
-"cue": "Gomiti leggermente flessi, controllo in discesa"
-}
-]
-},
-{
-"id": "seduta_c",
-"name": "Seduta C",
-"sub": "Estensione d'anca + Tirata + Braccia",
-"ex": [
-{
-"id": "sc1",
-"t": "B",
-"n": "Stacco con manubri",
-"sxr": "4x6",
-"rec": 120,
-"prog": null,
-"cue": "CON GANCI. Spingi coi piedi, schiena neutra, manubri vicini alle gambe"
-},
-{
-"id": "sc2",
-"t": "B",
-"n": "Lat Machine triangolo",
-"sxr": "4x8",
-"rec": 120,
-"prog": null,
-"cue": "CON GANCI. Presa neutra, busto bloccato, tira al petto alto"
-},
-{
-"id": "sc3",
+"id": "sb5",
 "t": "C",
 "n": "Lat Machine barra presa prona",
 "sxr": "3x10",
@@ -282,49 +245,22 @@ const SESSIONS = [
 "cue": "CON GANCI. Barra al petto alto, busto fermo"
 },
 {
-"id": "sc4",
-"t": "C",
-"n": "Hyperextension",
-"sxr": "3x12",
-"rec": 90,
-"prog": null,
-"cue": "Schiena neutra, contrai i glutei in cima"
-},
-{
-"id": "sc5",
-"t": "C",
-"n": "Curl manubri panca 45 gradi",
-"sxr": "3x10",
-"rec": 90,
-"prog": null,
-"cue": "Gomito fermo, presa a martello se il dito da fastidio"
-},
-{
-"id": "sc6",
-"t": "C",
+"id": "sb6",
+"t": "P",
 "n": "Push Down corda",
-"sxr": "3x10",
-"rec": 90,
+"sxr": "2x12",
+"rec": 60,
 "prog": null,
 "cue": "Gomiti lungo i fianchi, zero stress sulla presa"
 },
 {
-"id": "sc7",
+"id": "sb7",
 "t": "P",
-"n": "Curl manubri martello",
+"n": "Curl manubri panca 45 gradi",
 "sxr": "2x12",
 "rec": 60,
 "prog": null,
-"cue": "Presa neutra, gomito fermo"
-},
-{
-"id": "sc8",
-"t": "P",
-"n": "French Press manubrio",
-"sxr": "2x12",
-"rec": 60,
-"prog": null,
-"cue": "Manubrio dietro la nuca a due mani, gomiti fermi"
+"cue": "Gomito fermo, presa a martello se il dito da fastidio"
 }
 ]
 }
