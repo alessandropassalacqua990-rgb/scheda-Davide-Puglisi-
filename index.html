@@ -74,7 +74,7 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 <body>
 <div class="header">
   <div class="logo">S</div>
-  <div class="header-txt"><h1>SUPER-ALE</h1><p id="headerSub">Davide Puglisi · Fase 3</p></div>
+  <div class="header-txt"><h1>SUPER-ALE</h1><p id="headerSub">Davide Puglisi · Fase 4</p></div>
 </div>
 <div class="nav">
   <button class="active" onclick="switchView('scheda')">📋 Scheda</button>
@@ -87,15 +87,15 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 </div>
 <div id="schedaView"></div>
 <div id="riepilogoView" style="display:none"></div>
-<div class="footer">Metodo SUPER-ALE · Fase 3 - Accumulo Volume</div>
+<div class="footer">Metodo SUPER-ALE · Fase 4 - Aumento Intensita</div>
 <script>
 // ══════════════════════════════════════════════════
 // SOSTITUISCI SOLO QUESTA SEZIONE PER OGNI CLIENTE
 // ══════════════════════════════════════════════════
 const CLIENT_NAME = "Davide Puglisi";
-const PHASE_LABEL = "Fase 3 - Accumulo Volume";
-const PHASE_SHORT = "Fase 3";
-const STORAGE_KEY = "superale-davide-puglisi-fase3";
+const PHASE_LABEL = "Fase 4 - Aumento Intensita";
+const PHASE_SHORT = "Fase 4";
+const STORAGE_KEY = "superale-davide-puglisi-fase4";
 const NUM_WEEKS = 5;
 const WEEKS = Array.from({length: NUM_WEEKS}, (_, i) => i + 1);
 
@@ -108,32 +108,32 @@ const SESSIONS = [
 {
 "id": "sa1",
 "t": "B",
-"n": "Panca Piana bilanciere",
+"n": "Panca Piana bilanciere (o Panca Piana con manubri)",
 "sxr": "V",
-"rec": 120,
+"rec": 150,
 "prog": [
+"4x6+",
 "4x6",
-"4x6",
-"5x6",
-"5x6",
-"4x7"
+"5x5+",
+"5x5",
+"6x4+"
 ],
-"cue": "Setting scapolare, fermo 1\" al petto. Carico W1: 25 kg. Fisso per tutte le 5 settimane"
+"cue": "BILANCIERE: 40 kg W1. Setting scapolare, fermo 1\" al petto. MANUBRI (alternativa): 14+14 kg W1"
 },
 {
 "id": "sa2",
 "t": "B",
-"n": "Military Press bilanciere",
+"n": "Military Press bilanciere (o Lento avanti manubri seduto)",
 "sxr": "V",
-"rec": 120,
+"rec": 150,
 "prog": [
+"4x6+",
 "4x6",
-"4x6",
-"5x6",
-"5x6",
-"4x7"
+"5x5+",
+"5x5",
+"6x4+"
 ],
-"cue": "Gomito sotto polso, addome contratto. Carico W1: 20 kg. Fisso per tutte le 5 settimane"
+"cue": "BILANCIERE: 24 kg W1, in piedi. MANUBRI (alternativa): Lento avanti seduto panca 90 gradi, 12+12 kg W1. Gomito sotto polso"
 },
 {
 "id": "sa3",
@@ -142,25 +142,25 @@ const SESSIONS = [
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "CON GANCI. Un braccio alla volta, presa neutra, tira di gomito"
+"cue": "CON GANCI. Tirata ORIZZONTALE. Un braccio alla volta, presa neutra. S.P. da 16 kg"
 },
 {
 "id": "sa4",
 "t": "C",
-"n": "Lat Machine triangolo",
+"n": "Lat Machine triangolo presa neutra",
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "CON GANCI. Presa neutra, busto bloccato, tira al petto alto"
+"cue": "CON GANCI. Tirata VERTICALE. Presa neutra col triangolo. Busto bloccato, tira al petto. S.P. da 35 kg"
 },
 {
 "id": "sa5",
 "t": "C",
-"n": "Goblet Squat manubrio",
-"sxr": "3x8",
+"n": "Bulgarian Split Squat manubri",
+"sxr": "3x8 per gamba",
 "rec": 90,
 "prog": null,
-"cue": "Manubrio al petto, schiena dritta, sotto il parallelo"
+"cue": "NUOVO. Piede dietro su panca, manubri lungo i fianchi. Ginocchio in linea con la punta. Inizia leggero (8+8 kg)"
 },
 {
 "id": "sa6",
@@ -169,7 +169,7 @@ const SESSIONS = [
 "sxr": "2x12",
 "rec": 60,
 "prog": null,
-"cue": "Presa neutra, gomito fermo"
+"cue": "S.P. da 8 kg. Presa neutra, gomito fermo"
 },
 {
 "id": "sa7",
@@ -178,53 +178,53 @@ const SESSIONS = [
 "sxr": "2x15",
 "rec": 60,
 "prog": null,
-"cue": "Gomiti leggermente flessi, non superare le spalle"
+"cue": "S.P. da 6 kg. Gomiti leggermente flessi"
 }
 ]
 },
 {
 "id": "seduta_b",
 "name": "Seduta B",
-"sub": "Full Body (priorita gambe + stacco)",
+"sub": "Full Body (priorita gambe + posteriori)",
 "ex": [
 {
 "id": "sb1",
 "t": "B",
-"n": "Stacco con manubri",
-"sxr": "V",
-"rec": 120,
+"n": "Single-Leg Hip Thrust con manubrio",
+"sxr": "V per gamba",
+"rec": 150,
 "prog": [
+"4x6+",
 "4x6",
-"4x6",
-"5x6",
-"5x6",
-"4x7"
+"5x5+",
+"5x5",
+"6x4+"
 ],
-"cue": "CON GANCI. Carico W1: 10+10 kg. Se W1 e troppo facile, dalla W2 sblocca a 12+12"
+"cue": "15 kg W1 per gamba. Scapole su panca, un piede a terra, gamba non lavorante tesa in avanti sollevata. Manubrio sopra anca gamba lavorante. Spingi con il tallone, contrai gluteo in cima. Progressione V PER GAMBA."
 },
 {
 "id": "sb2",
 "t": "B",
-"n": "Squat bilanciere (se disponibile) o Goblet Squat",
+"n": "Squat bilanciere (o Bulgarian Split Squat manubri)",
 "sxr": "V",
-"rec": 120,
+"rec": 150,
 "prog": [
+"4x6+",
 "4x6",
-"4x6",
-"5x6",
-"5x6",
-"4x7"
+"5x5+",
+"5x5",
+"6x4+"
 ],
-"cue": "Carico W1: 20 kg bilanciere o 20 kg Goblet. Fisso per tutte le 5 settimane"
+"cue": "BILANCIERE: 25 kg W1 (bilanciere leggero, focus tecnica). MANUBRI (alternativa): Bulgarian Split 12+12 kg per gamba"
 },
 {
 "id": "sb3",
 "t": "C",
-"n": "Panca Piana bilanciere",
+"n": "Panca Piana bilanciere (o Panca Piana con manubri)",
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "Setting scapolare, fermo al petto, niente rimbalzo"
+"cue": "S.P. da 36 kg bilanciere o 12+12 manubri"
 },
 {
 "id": "sb4",
@@ -233,16 +233,16 @@ const SESSIONS = [
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "Panca 90 gradi, presa neutra, gomito sotto polso"
+"cue": "Panca 90 gradi. Presa neutra. S.P. da 12+12 kg"
 },
 {
 "id": "sb5",
 "t": "C",
-"n": "Lat Machine barra presa prona",
+"n": "Rematore chest-supported su panca 30 gradi",
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "CON GANCI. Barra al petto alto, busto fermo"
+"cue": "NUOVO. Sostituisce Lat Machine barra (dava fastidio al polso). Sdraiato prono, panca inclinata 30 gradi"
 },
 {
 "id": "sb6",
@@ -251,7 +251,7 @@ const SESSIONS = [
 "sxr": "2x12",
 "rec": 60,
 "prog": null,
-"cue": "Gomiti lungo i fianchi, zero stress sulla presa"
+"cue": "S.P. da 18 kg. Zero stress presa"
 },
 {
 "id": "sb7",
@@ -260,7 +260,7 @@ const SESSIONS = [
 "sxr": "2x12",
 "rec": 60,
 "prog": null,
-"cue": "Gomito fermo, presa a martello se il dito da fastidio"
+"cue": "S.P. da 10 kg. Presa martello se dito da fastidio"
 }
 ]
 }
