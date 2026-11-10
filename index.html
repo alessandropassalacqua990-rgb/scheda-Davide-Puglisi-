@@ -74,7 +74,7 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 <body>
 <div class="header">
   <div class="logo">S</div>
-  <div class="header-txt"><h1>SUPER-ALE</h1><p id="headerSub">Davide Puglisi · Fase 4</p></div>
+  <div class="header-txt"><h1>SUPER-ALE</h1><p id="headerSub">Davide Puglisi · Fase 5 B1</p></div>
 </div>
 <div class="nav">
   <button class="active" onclick="switchView('scheda')">📋 Scheda</button>
@@ -87,187 +87,227 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 </div>
 <div id="schedaView"></div>
 <div id="riepilogoView" style="display:none"></div>
-<div class="footer">Metodo SUPER-ALE · Fase 4 - Aumento Intensita</div>
+<div class="footer">Metodo SUPER-ALE · Fase 5 - Intermedio Blocco 1</div>
 <script>
-// ══════════════════════════════════════════════════
-// SOSTITUISCI SOLO QUESTA SEZIONE PER OGNI CLIENTE
-// ══════════════════════════════════════════════════
 const CLIENT_NAME = "Davide Puglisi";
-const PHASE_LABEL = "Fase 4 - Aumento Intensita";
-const PHASE_SHORT = "Fase 4";
-const STORAGE_KEY = "superale-davide-puglisi-fase4";
+const PHASE_LABEL = "Fase 5 - Intermedio Blocco 1";
+const PHASE_SHORT = "Fase 5 B1";
+const STORAGE_KEY = "superale-davide-puglisi-fase5-b1";
 const NUM_WEEKS = 5;
 const WEEKS = Array.from({length: NUM_WEEKS}, (_, i) => i + 1);
 
 const SESSIONS = [
 {
-"id": "seduta_a",
-"name": "Seduta A",
-"sub": "Full Body (priorita spinte + tirate)",
+"id": "upper_a",
+"name": "Upper A",
+"sub": "Push focus (petto, spalle, tricipiti)",
 "ex": [
 {
-"id": "sa1",
+"id": "ua1",
 "t": "B",
-"n": "Panca Piana bilanciere (o Panca Piana con manubri)",
-"sxr": "V",
-"rec": 150,
-"prog": [
-"4x6+",
-"4x6",
-"5x5+",
-"5x5",
-"6x4+"
-],
-"cue": "BILANCIERE: 40 kg W1. Setting scapolare, fermo 1\" al petto. MANUBRI (alternativa): 14+14 kg W1"
+"n": "Panca Piana bilanciere",
+"sxr": "4x6-8",
+"rec": 120,
+"prog": null,
+"cue": "W1: 42,5 kg. Setting scapolare, fermo 1\" al petto. Doppia progressione. BUFFER 1-2."
 },
 {
-"id": "sa2",
+"id": "ua2",
 "t": "B",
 "n": "Military Press bilanciere (o Lento avanti manubri seduto)",
-"sxr": "V",
-"rec": 150,
-"prog": [
-"4x6+",
-"4x6",
-"5x5+",
-"5x5",
-"6x4+"
-],
-"cue": "BILANCIERE: 24 kg W1, in piedi. MANUBRI (alternativa): Lento avanti seduto panca 90 gradi, 12+12 kg W1. Gomito sotto polso"
+"sxr": "3x6-8",
+"rec": 120,
+"prog": null,
+"cue": "W1: 24 kg BB / 12+12 MB. Gomito sotto polso. Doppia progressione. BUFFER 1-2."
 },
 {
-"id": "sa3",
+"id": "ua3",
 "t": "C",
-"n": "Rematore con manubrio",
-"sxr": "3x10",
+"n": "Spinte panca inclinata 30 gradi manubri",
+"sxr": "3x8-10",
 "rec": 90,
 "prog": null,
-"cue": "CON GANCI. Tirata ORIZZONTALE. Un braccio alla volta, presa neutra. S.P. da 16 kg"
+"cue": "W1: 12+12 kg. Petto alto. Presa neutra. Cedimento solo ultima serie."
 },
 {
-"id": "sa4",
+"id": "ua4",
 "t": "C",
-"n": "Lat Machine triangolo presa neutra",
-"sxr": "3x10",
+"n": "Pec Deck macchina (o Croci manubri panca piana)",
+"sxr": "3x10-12",
 "rec": 90,
 "prog": null,
-"cue": "CON GANCI. Tirata VERTICALE. Presa neutra col triangolo. Busto bloccato, tira al petto. S.P. da 35 kg"
+"cue": "Pec Deck preferita. Croci manubri 6+6 kg se Pec Deck non c'e. Cedimento ultima serie."
 },
 {
-"id": "sa5",
+"id": "ua5",
 "t": "C",
-"n": "Bulgarian Split Squat manubri",
-"sxr": "3x8 per gamba",
+"n": "French Press manubri su panca",
+"sxr": "3x12",
 "rec": 90,
 "prog": null,
-"cue": "NUOVO. Piede dietro su panca, manubri lungo i fianchi. Ginocchio in linea con la punta. Inizia leggero (8+8 kg)"
+"cue": "Sdraiato panca, 2 manubri, spalla flessa 90 gradi. Gomiti fermi. Cedimento ultima serie."
 },
 {
-"id": "sa6",
+"id": "ua6",
 "t": "P",
-"n": "Curl manubri martello",
-"sxr": "2x12",
+"n": "Push Down corda [STRIPPING ultima serie]",
+"sxr": "2x12 + stripping",
 "rec": 60,
 "prog": null,
-"cue": "S.P. da 8 kg. Presa neutra, gomito fermo"
+"cue": "W1: 18 kg. STRIPPING ultima serie: cedimento @18kg -> scarica a 12kg -> cedimento -> scarica a 8kg -> cedimento."
 },
 {
-"id": "sa7",
+"id": "ua7",
 "t": "P",
 "n": "Alzate laterali manubri",
 "sxr": "2x15",
 "rec": 60,
 "prog": null,
-"cue": "S.P. da 6 kg. Gomiti leggermente flessi"
+"cue": "W1: 6 kg. Gomiti leggermente flessi. Cedimento tutte le serie."
 }
 ]
 },
 {
-"id": "seduta_b",
-"name": "Seduta B",
-"sub": "Full Body (priorita gambe + posteriori)",
+"id": "lower",
+"name": "Lower",
+"sub": "Gambe + posteriori",
 "ex": [
 {
-"id": "sb1",
+"id": "lo1",
 "t": "B",
-"n": "Single-Leg Hip Thrust con manubrio",
-"sxr": "V per gamba",
+"n": "Squat bilanciere",
+"sxr": "4x6-8",
 "rec": 150,
-"prog": [
-"4x6+",
-"4x6",
-"5x5+",
-"5x5",
-"6x4+"
-],
-"cue": "15 kg W1 per gamba. Scapole su panca, un piede a terra, gamba non lavorante tesa in avanti sollevata. Manubrio sopra anca gamba lavorante. Spingi con il tallone, contrai gluteo in cima. Progressione V PER GAMBA."
+"prog": null,
+"cue": "W1: 27,5 kg. Scendi come se ti sedessi. Doppia progressione. BUFFER 1-2."
 },
 {
-"id": "sb2",
+"id": "lo2",
 "t": "B",
-"n": "Squat bilanciere (o Bulgarian Split Squat manubri)",
-"sxr": "V",
+"n": "Hip Thrust bilanciere",
+"sxr": "3x6-8",
 "rec": 150,
-"prog": [
-"4x6+",
-"4x6",
-"5x5+",
-"5x5",
-"6x4+"
-],
-"cue": "BILANCIERE: 25 kg W1 (bilanciere leggero, focus tecnica). MANUBRI (alternativa): Bulgarian Split 12+12 kg per gamba"
+"prog": null,
+"cue": "W1: 40 kg BB. Scapole su panca, protezione morbida pube, blocca in cima. BUFFER 1-2. Zero stress lombare. Se bilanciere assente: Single-Leg Hip Thrust con manubrio 15 kg per gamba."
 },
 {
-"id": "sb3",
+"id": "lo3",
 "t": "C",
-"n": "Panca Piana bilanciere (o Panca Piana con manubri)",
+"n": "Bulgarian Split Squat manubri",
+"sxr": "3x8 per gamba",
+"rec": 90,
+"prog": null,
+"cue": "W1: 10+10 kg per gamba. Ginocchio in linea con la punta. Cedimento ultima serie. CON GANCI."
+},
+{
+"id": "lo4",
+"t": "C",
+"n": "Leg Curl macchina (o Nordic Curl corpo libero)",
 "sxr": "3x10",
 "rec": 90,
 "prog": null,
-"cue": "S.P. da 36 kg bilanciere o 12+12 manubri"
+"cue": "W1: da testare. Zero stress presa. Cedimento ultima serie."
 },
 {
-"id": "sb4",
+"id": "lo5",
 "t": "C",
-"n": "Spinte in alto manubri seduto",
-"sxr": "3x10",
-"rec": 90,
-"prog": null,
-"cue": "Panca 90 gradi. Presa neutra. S.P. da 12+12 kg"
-},
-{
-"id": "sb5",
-"t": "C",
-"n": "Rematore chest-supported su panca 30 gradi",
-"sxr": "3x10",
-"rec": 90,
-"prog": null,
-"cue": "NUOVO. Sostituisce Lat Machine barra (dava fastidio al polso). Sdraiato prono, panca inclinata 30 gradi"
-},
-{
-"id": "sb6",
-"t": "P",
-"n": "Push Down corda",
-"sxr": "2x12",
+"n": "Calf Raise in piedi manubri",
+"sxr": "3x12",
 "rec": 60,
 "prog": null,
-"cue": "S.P. da 18 kg. Zero stress presa"
+"cue": "W1: 10+10 kg. Range completo. Cedimento tutte le serie."
 },
 {
-"id": "sb7",
+"id": "lo6",
+"t": "P",
+"n": "Leg Extension macchina [STRIPPING ultima serie]",
+"sxr": "2x15 + stripping",
+"rec": 60,
+"prog": null,
+"cue": "STRIPPING ultima serie: cedimento al carico base -> scarica -30% -> cedimento -> scarica -30% -> cedimento."
+},
+{
+"id": "lo7",
+"t": "P",
+"n": "Glute Kickback al cavo",
+"sxr": "2x15 per gamba",
+"rec": 60,
+"prog": null,
+"cue": "Cavalia caviglia, cavo basso. Cedimento tutte le serie. Zero stress presa."
+}
+]
+},
+{
+"id": "upper_b",
+"name": "Upper B",
+"sub": "Pull focus (dorso, bicipiti, posteriori)",
+"ex": [
+{
+"id": "ub1",
+"t": "B",
+"n": "Lat Machine triangolo (o barra dritta)",
+"sxr": "4x6-8",
+"rec": 120,
+"prog": null,
+"cue": "W1: 40 kg. CON GANCI. Tirata VERTICALE. Triangolo = presa neutra (preferita). Barra dritta = variante prona. Doppia progressione. BUFFER 1-2."
+},
+{
+"id": "ub2",
+"t": "B",
+"n": "Rematore chest-supported panca 30 gradi",
+"sxr": "4x8-10",
+"rec": 120,
+"prog": null,
+"cue": "W1: 16+16 kg. CON GANCI. Tirata ORIZZONTALE bilaterale. Petto appoggiato = rilasci presa tra rep. BUFFER 1-2."
+},
+{
+"id": "ub3",
+"t": "C",
+"n": "Pullover ai cavi presa neutra",
+"sxr": "3x12",
+"rec": 90,
+"prog": null,
+"cue": "Cavo alto, corda. Braccia leggermente flesse, tira dall alto alle cosce. Isola gran dorsale in allungamento. Cedimento ultima serie."
+},
+{
+"id": "ub4",
+"t": "C",
+"n": "Rematore al cavo basso in piedi",
+"sxr": "3x10",
+"rec": 90,
+"prog": null,
+"cue": "In piedi, cavo basso con triangolo. Busto inclinato leggermente, schiena neutra. Tira verso l ombelico, gomiti vicino ai fianchi. Bilaterale."
+},
+{
+"id": "ub5",
+"t": "C",
+"n": "Face Pulls alla corda",
+"sxr": "3x15",
+"rec": 60,
+"prog": null,
+"cue": "W1: 15 kg. Cavo alto, corda, tira alla faccia. Zero stress presa. OBBLIGATORIO. Cedimento tutte le serie."
+},
+{
+"id": "ub6",
 "t": "P",
 "n": "Curl manubri panca 45 gradi",
 "sxr": "2x12",
 "rec": 60,
 "prog": null,
-"cue": "S.P. da 10 kg. Presa martello se dito da fastidio"
+"cue": "W1: 10 kg. Gomito fermo. Presa martello se dito da fastidio. Cedimento tutte le serie."
+},
+{
+"id": "ub7",
+"t": "P",
+"n": "Curl manubri martello [REST-PAUSE ultima serie]",
+"sxr": "2x12 + rest-pause",
+"rec": 60,
+"prog": null,
+"cue": "REST-PAUSE ultima serie: cedimento @10kg -> appoggia manubri 15-20\" -> cedimento -> appoggia 15-20\" -> cedimento. Target 25-30 rep totali."
 }
 ]
 }
 ];
-// ══════════════════════════════════════════════════
-// FINE SEZIONE PERSONALIZZABILE
-// ══════════════════════════════════════════════════
 
 let state={ses:0,week:1,openEx:null};
 let log={};
